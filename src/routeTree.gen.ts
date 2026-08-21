@@ -10,33 +10,129 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ShellRouteImport } from './routes/_shell'
+import { Route as ShellAnalyticsRouteImport } from './routes/_shell.analytics'
+import { Route as ShellCalendarRouteImport } from './routes/_shell.calendar'
+import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
+import { Route as ShellProjectsRouteImport } from './routes/_shell.projects'
+import { Route as ShellTeamRouteImport } from './routes/_shell.team'
+import { Route as ShellSettingsProfileRouteImport } from './routes/_shell.settings.profile'
+import { Route as ShellSettingsWorkspaceRouteImport } from './routes/_shell.settings.workspace'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShellRoute = ShellRouteImport.update({
+  id: '/_shell',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShellAnalyticsRoute = ShellAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellCalendarRoute = ShellCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellDashboardRoute = ShellDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellProjectsRoute = ShellProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellTeamRoute = ShellTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSettingsProfileRoute = ShellSettingsProfileRouteImport.update({
+  id: '/settings/profile',
+  path: '/settings/profile',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSettingsWorkspaceRoute = ShellSettingsWorkspaceRouteImport.update({
+  id: '/settings/workspace',
+  path: '/settings/workspace',
+  getParentRoute: () => ShellRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof ShellAnalyticsRoute
+  '/calendar': typeof ShellCalendarRoute
+  '/dashboard': typeof ShellDashboardRoute
+  '/projects': typeof ShellProjectsRoute
+  '/team': typeof ShellTeamRoute
+  '/settings/profile': typeof ShellSettingsProfileRoute
+  '/settings/workspace': typeof ShellSettingsWorkspaceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof ShellAnalyticsRoute
+  '/calendar': typeof ShellCalendarRoute
+  '/dashboard': typeof ShellDashboardRoute
+  '/projects': typeof ShellProjectsRoute
+  '/team': typeof ShellTeamRoute
+  '/settings/profile': typeof ShellSettingsProfileRoute
+  '/settings/workspace': typeof ShellSettingsWorkspaceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_shell': typeof ShellRouteWithChildren
+  '/_shell/analytics': typeof ShellAnalyticsRoute
+  '/_shell/calendar': typeof ShellCalendarRoute
+  '/_shell/dashboard': typeof ShellDashboardRoute
+  '/_shell/projects': typeof ShellProjectsRoute
+  '/_shell/team': typeof ShellTeamRoute
+  '/_shell/settings/profile': typeof ShellSettingsProfileRoute
+  '/_shell/settings/workspace': typeof ShellSettingsWorkspaceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/analytics'
+    | '/calendar'
+    | '/dashboard'
+    | '/projects'
+    | '/team'
+    | '/settings/profile'
+    | '/settings/workspace'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/analytics'
+    | '/calendar'
+    | '/dashboard'
+    | '/projects'
+    | '/team'
+    | '/settings/profile'
+    | '/settings/workspace'
+  id:
+    | '__root__'
+    | '/'
+    | '/_shell'
+    | '/_shell/analytics'
+    | '/_shell/calendar'
+    | '/_shell/dashboard'
+    | '/_shell/projects'
+    | '/_shell/team'
+    | '/_shell/settings/profile'
+    | '/_shell/settings/workspace'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ShellRoute: typeof ShellRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +144,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_shell': {
+      id: '/_shell'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof ShellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_shell/analytics': {
+      id: '/_shell/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof ShellAnalyticsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/calendar': {
+      id: '/_shell/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof ShellCalendarRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/dashboard': {
+      id: '/_shell/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof ShellDashboardRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/projects': {
+      id: '/_shell/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ShellProjectsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/team': {
+      id: '/_shell/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof ShellTeamRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/settings/profile': {
+      id: '/_shell/settings/profile'
+      path: '/settings/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof ShellSettingsProfileRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/settings/workspace': {
+      id: '/_shell/settings/workspace'
+      path: '/settings/workspace'
+      fullPath: '/settings/workspace'
+      preLoaderRoute: typeof ShellSettingsWorkspaceRouteImport
+      parentRoute: typeof ShellRoute
+    }
   }
 }
 
+interface ShellRouteChildren {
+  ShellAnalyticsRoute: typeof ShellAnalyticsRoute
+  ShellCalendarRoute: typeof ShellCalendarRoute
+  ShellDashboardRoute: typeof ShellDashboardRoute
+  ShellProjectsRoute: typeof ShellProjectsRoute
+  ShellTeamRoute: typeof ShellTeamRoute
+  ShellSettingsProfileRoute: typeof ShellSettingsProfileRoute
+  ShellSettingsWorkspaceRoute: typeof ShellSettingsWorkspaceRoute
+}
+
+const ShellRouteChildren: ShellRouteChildren = {
+  ShellAnalyticsRoute: ShellAnalyticsRoute,
+  ShellCalendarRoute: ShellCalendarRoute,
+  ShellDashboardRoute: ShellDashboardRoute,
+  ShellProjectsRoute: ShellProjectsRoute,
+  ShellTeamRoute: ShellTeamRoute,
+  ShellSettingsProfileRoute: ShellSettingsProfileRoute,
+  ShellSettingsWorkspaceRoute: ShellSettingsWorkspaceRoute,
+}
+
+const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ShellRoute: ShellRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
