@@ -90,8 +90,8 @@ const statuses = ["backlog", "todo", "in_progress", "in_review", "done"] as cons
 const priorities = ["urgent", "high", "medium", "low"] as const;
 
 export const tasks: Task[] = titles.flatMap((title, i) => {
-  const project = projects[i % projects.length];
-  const status = statuses[(i * 3) % statuses.length];
+  const project = projects[i % projects.length]!;
+  const status = statuses[(i * 3) % statuses.length]!;
   const overdue = i % 7 === 0;
   return [
     {
@@ -99,9 +99,9 @@ export const tasks: Task[] = titles.flatMap((title, i) => {
       projectId: project.id,
       title,
       status,
-      priority: priorities[i % priorities.length],
-      assigneeId: i % 6 === 5 ? null : members[i % members.length].id,
-      labelIds: [labels[i % labels.length].id, ...(i % 4 === 0 ? [labels[(i + 2) % labels.length].id] : [])],
+      priority: priorities[i % priorities.length]!,
+      assigneeId: i % 6 === 5 ? null : members[i % members.length]!.id,
+      labelIds: [labels[i % labels.length]!.id, ...(i % 4 === 0 ? [labels[(i + 2) % labels.length]!.id] : [])],
       dueDate: iso(overdue ? subDays(today, (i % 5) + 1) : addDays(today, (i % 14) + 1)),
       createdAt: iso(subDays(today, 30 - (i % 25))),
       commentCount: i % 5,
