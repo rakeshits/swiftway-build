@@ -17,6 +17,7 @@ import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
 import { Route as ShellProjectsRouteImport } from './routes/_shell.projects'
 import { Route as ShellTeamRouteImport } from './routes/_shell.team'
 import { Route as ShellSettingsProfileRouteImport } from './routes/_shell.settings.profile'
+import { Route as ShellSettingsWorkspaceRouteImport } from './routes/_shell.settings.workspace'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -57,6 +58,11 @@ const ShellSettingsProfileRoute = ShellSettingsProfileRouteImport.update({
   path: '/settings/profile',
   getParentRoute: () => ShellRoute,
 } as any)
+const ShellSettingsWorkspaceRoute = ShellSettingsWorkspaceRouteImport.update({
+  id: '/settings/workspace',
+  path: '/settings/workspace',
+  getParentRoute: () => ShellRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/projects': typeof ShellProjectsRoute
   '/team': typeof ShellTeamRoute
   '/settings/profile': typeof ShellSettingsProfileRoute
+  '/settings/workspace': typeof ShellSettingsWorkspaceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/projects': typeof ShellProjectsRoute
   '/team': typeof ShellTeamRoute
   '/settings/profile': typeof ShellSettingsProfileRoute
+  '/settings/workspace': typeof ShellSettingsWorkspaceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/_shell/projects': typeof ShellProjectsRoute
   '/_shell/team': typeof ShellTeamRoute
   '/_shell/settings/profile': typeof ShellSettingsProfileRoute
+  '/_shell/settings/workspace': typeof ShellSettingsWorkspaceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/team'
     | '/settings/profile'
+    | '/settings/workspace'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/team'
     | '/settings/profile'
+    | '/settings/workspace'
   id:
     | '__root__'
     | '/'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/_shell/projects'
     | '/_shell/team'
     | '/_shell/settings/profile'
+    | '/_shell/settings/workspace'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -181,6 +193,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellSettingsProfileRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/_shell/settings/workspace': {
+      id: '/_shell/settings/workspace'
+      path: '/settings/workspace'
+      fullPath: '/settings/workspace'
+      preLoaderRoute: typeof ShellSettingsWorkspaceRouteImport
+      parentRoute: typeof ShellRoute
+    }
   }
 }
 
@@ -191,6 +210,7 @@ interface ShellRouteChildren {
   ShellProjectsRoute: typeof ShellProjectsRoute
   ShellTeamRoute: typeof ShellTeamRoute
   ShellSettingsProfileRoute: typeof ShellSettingsProfileRoute
+  ShellSettingsWorkspaceRoute: typeof ShellSettingsWorkspaceRoute
 }
 
 const ShellRouteChildren: ShellRouteChildren = {
@@ -200,6 +220,7 @@ const ShellRouteChildren: ShellRouteChildren = {
   ShellProjectsRoute: ShellProjectsRoute,
   ShellTeamRoute: ShellTeamRoute,
   ShellSettingsProfileRoute: ShellSettingsProfileRoute,
+  ShellSettingsWorkspaceRoute: ShellSettingsWorkspaceRoute,
 }
 
 const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
