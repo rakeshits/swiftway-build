@@ -22,6 +22,7 @@ import { Route as ShellSettingsProfileRouteImport } from './routes/_shell.settin
 import { Route as ShellSettingsWorkspaceRouteImport } from './routes/_shell.settings.workspace'
 import { Route as ShellProjectsProjectIdIndexRouteImport } from './routes/_shell.projects.$projectId.index'
 import { Route as ShellProjectsProjectIdBoardRouteImport } from './routes/_shell.projects.$projectId.board'
+import { Route as ShellProjectsProjectIdListRouteImport } from './routes/_shell.projects.$projectId.list'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -89,6 +90,12 @@ const ShellProjectsProjectIdBoardRoute =
     path: '/board',
     getParentRoute: () => ShellProjectsProjectIdRoute,
   } as any)
+const ShellProjectsProjectIdListRoute =
+  ShellProjectsProjectIdListRouteImport.update({
+    id: '/list',
+    path: '/list',
+    getParentRoute: () => ShellProjectsProjectIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/settings/workspace': typeof ShellSettingsWorkspaceRoute
   '/projects/': typeof ShellProjectsIndexRoute
   '/projects/$projectId/board': typeof ShellProjectsProjectIdBoardRoute
+  '/projects/$projectId/list': typeof ShellProjectsProjectIdListRoute
   '/projects/$projectId/': typeof ShellProjectsProjectIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -114,6 +122,7 @@ export interface FileRoutesByTo {
   '/settings/workspace': typeof ShellSettingsWorkspaceRoute
   '/projects': typeof ShellProjectsIndexRoute
   '/projects/$projectId/board': typeof ShellProjectsProjectIdBoardRoute
+  '/projects/$projectId/list': typeof ShellProjectsProjectIdListRoute
   '/projects/$projectId': typeof ShellProjectsProjectIdIndexRoute
 }
 export interface FileRoutesById {
@@ -130,6 +139,7 @@ export interface FileRoutesById {
   '/_shell/settings/workspace': typeof ShellSettingsWorkspaceRoute
   '/_shell/projects/': typeof ShellProjectsIndexRoute
   '/_shell/projects/$projectId/board': typeof ShellProjectsProjectIdBoardRoute
+  '/_shell/projects/$projectId/list': typeof ShellProjectsProjectIdListRoute
   '/_shell/projects/$projectId/': typeof ShellProjectsProjectIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/settings/workspace'
     | '/projects/'
     | '/projects/$projectId/board'
+    | '/projects/$projectId/list'
     | '/projects/$projectId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
     | '/settings/workspace'
     | '/projects'
     | '/projects/$projectId/board'
+    | '/projects/$projectId/list'
     | '/projects/$projectId'
   id:
     | '__root__'
@@ -173,6 +185,7 @@ export interface FileRouteTypes {
     | '/_shell/settings/workspace'
     | '/_shell/projects/'
     | '/_shell/projects/$projectId/board'
+    | '/_shell/projects/$projectId/list'
     | '/_shell/projects/$projectId/'
   fileRoutesById: FileRoutesById
 }
@@ -274,17 +287,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellProjectsProjectIdBoardRouteImport
       parentRoute: typeof ShellProjectsProjectIdRoute
     }
+    '/_shell/projects/$projectId/list': {
+      id: '/_shell/projects/$projectId/list'
+      path: '/list'
+      fullPath: '/projects/$projectId/list'
+      preLoaderRoute: typeof ShellProjectsProjectIdListRouteImport
+      parentRoute: typeof ShellProjectsProjectIdRoute
+    }
   }
 }
 
 interface ShellProjectsProjectIdRouteChildren {
   ShellProjectsProjectIdBoardRoute: typeof ShellProjectsProjectIdBoardRoute
+  ShellProjectsProjectIdListRoute: typeof ShellProjectsProjectIdListRoute
   ShellProjectsProjectIdIndexRoute: typeof ShellProjectsProjectIdIndexRoute
 }
 
 const ShellProjectsProjectIdRouteChildren: ShellProjectsProjectIdRouteChildren =
   {
     ShellProjectsProjectIdBoardRoute: ShellProjectsProjectIdBoardRoute,
+    ShellProjectsProjectIdListRoute: ShellProjectsProjectIdListRoute,
     ShellProjectsProjectIdIndexRoute: ShellProjectsProjectIdIndexRoute,
   }
 
