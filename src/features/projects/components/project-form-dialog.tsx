@@ -59,7 +59,7 @@ export function ProjectFormDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (values: ProjectInput) => void;
-  defaultValues?: Partial<ProjectInput>;
+  defaultValues?: Partial<ProjectInput> | undefined;
   mode?: "create" | "edit";
   pending?: boolean;
 }) {
