@@ -3,9 +3,10 @@ import { KanbanBoard } from "@/features/board/components/kanban-board";
 import { TaskPanel } from "@/features/board/components/task-panel";
 
 export const Route = createFileRoute("/_shell/projects/$projectId/board")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    task: typeof search.task === "string" && search.task ? search.task : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { task?: string } => {
+    const raw = search["task"];
+    return typeof raw === "string" && raw ? { task: raw } : {};
+  },
   component: BoardView,
 });
 
