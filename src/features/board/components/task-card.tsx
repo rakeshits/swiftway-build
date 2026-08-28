@@ -53,7 +53,6 @@ export const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(function TaskC
     <div
       ref={ref}
       style={style}
-      {...rest}
       role="button"
       tabIndex={0}
       onClick={() => onOpen?.(task.id)}
@@ -70,6 +69,7 @@ export const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(function TaskC
         overlay && "cursor-grabbing border-border-strong shadow-2xl",
         className,
       )}
+      {...rest}
     >
       <div className="flex items-start justify-between gap-2">
         <p className="min-w-0 flex-1 text-sm leading-snug font-medium">{task.title}</p>
