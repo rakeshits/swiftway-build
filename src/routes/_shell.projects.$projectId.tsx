@@ -194,31 +194,29 @@ function ProjectDetailShell() {
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        <div className="space-y-4 lg:col-span-2">
-          <nav className="flex w-full gap-1 overflow-x-auto rounded-lg border border-border bg-surface p-1">
-            {tabs.map((tab) => {
-              const active = Boolean(matchRoute({ to: tab.to, params: { projectId }, fuzzy: false }));
-              return (
-                <Link
-                  key={tab.to}
-                  to={tab.to}
-                  params={{ projectId }}
-                  className={cn(
-                    "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-                    active
-                      ? "bg-elevated text-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {tab.label}
-                </Link>
-              );
-            })}
-          </nav>
+      <div className="space-y-4">
+        <nav className="flex w-full gap-1 overflow-x-auto rounded-lg border border-border bg-surface p-1 lg:w-fit">
+          {tabs.map((tab) => {
+            const active = Boolean(matchRoute({ to: tab.to, params: { projectId }, fuzzy: false }));
+            return (
+              <Link
+                key={tab.to}
+                to={tab.to}
+                params={{ projectId }}
+                className={cn(
+                  "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                  active
+                    ? "bg-elevated text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {tab.label}
+              </Link>
+            );
+          })}
+        </nav>
 
-          <Outlet />
-        </div>
+        <Outlet />
 
         <section className="panel flex flex-col p-5">
           <div className="mb-4">
@@ -234,6 +232,7 @@ function ProjectDetailShell() {
           </div>
         </section>
       </div>
+
     </div>
   );
 }
