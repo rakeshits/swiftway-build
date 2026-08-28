@@ -1,6 +1,6 @@
 export type TaskStatus = "backlog" | "todo" | "in_progress" | "in_review" | "done";
 export type Priority = "urgent" | "high" | "medium" | "low";
-export type ProjectStatus = "on_track" | "at_risk" | "off_track" | "completed" | "archived";
+export type ProjectStatus = "active" | "on_hold" | "completed" | "archived";
 
 export type Member = {
   id: string;

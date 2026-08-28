@@ -30,7 +30,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     (t) => t.status !== "done" && t.dueDate && differenceInCalendarDays(parseISO(t.dueDate), now) < 0,
   ).length;
   return delayed({
-    activeProjects: projects.filter((p) => p.status !== "completed" && p.status !== "archived").length,
+    activeProjects: projects.filter((p) => p.status === "active" || p.status === "on_hold").length,
     totalTasks: tasks.length,
     completedTasks: completed,
     overdueTasks: overdue,
