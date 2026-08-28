@@ -1,13 +1,37 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { KanbanSquare } from "lucide-react";
-import { StagePlaceholder } from "@/features/projects/components/stage-placeholder";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { KanbanBoard } from "@/features/board/components/kanban-board";
+import { TaskPanel } from "@/features/board/components/task-panel";
 
 export const Route = createFileRoute("/_shell/projects/$projectId/board")({
-  component: () => (
-    <StagePlaceholder
-      icon={KanbanSquare}
-      title="Board is coming in the next stage"
-      description="Drag-and-drop kanban columns with task cards and a deep-linkable slide-over panel land here next."
-    />
-  ),
+  validateSearch: (search: Record<string, unknown>) => ({
+    task: typeof search.task === "string" && search.task ? search.task : undefined,
+  }),
+  component: BoardView,
 });
+
+function BoardView() {
+  const { projectId } = Route.useParams();
+  const { task } = Route.useSearch();
+  const navigate = useNavigate();
+
+  const openTask = (taskId: string) =>
+    void navigate({
+      to: "/projects/$projectId/board",
+      params: { projectId },
+      search: { task: taskId },
+    });
+
+  const closeTask = () =>
+    void navigate({
+      to: "/projects/$projectId/board",
+      params: { projectId },
+      search: { task: undefined },
+    });
+
+  return (
+    <>
+      <KanbanBoard projectId={projectId} onOpenTask={openTask} />
+      <TaskPanel taskId={task} onClose={closeTask} />
+    </>
+  );
+}
