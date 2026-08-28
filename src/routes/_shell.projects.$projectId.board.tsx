@@ -26,7 +26,7 @@ function BoardView() {
     void navigate({
       to: "/projects/$projectId/board",
       params: { projectId },
-      search: { task: undefined },
+      search: {},
     });
 
   return (
