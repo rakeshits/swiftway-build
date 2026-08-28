@@ -22,6 +22,7 @@ import { Route as ShellSettingsProfileRouteImport } from './routes/_shell.settin
 import { Route as ShellSettingsWorkspaceRouteImport } from './routes/_shell.settings.workspace'
 import { Route as ShellProjectsProjectIdIndexRouteImport } from './routes/_shell.projects.$projectId.index'
 import { Route as ShellProjectsProjectIdBoardRouteImport } from './routes/_shell.projects.$projectId.board'
+import { Route as ShellProjectsProjectIdCalendarRouteImport } from './routes/_shell.projects.$projectId.calendar'
 import { Route as ShellProjectsProjectIdListRouteImport } from './routes/_shell.projects.$projectId.list'
 
 const IndexRoute = IndexRouteImport.update({
@@ -90,6 +91,12 @@ const ShellProjectsProjectIdBoardRoute =
     path: '/board',
     getParentRoute: () => ShellProjectsProjectIdRoute,
   } as any)
+const ShellProjectsProjectIdCalendarRoute =
+  ShellProjectsProjectIdCalendarRouteImport.update({
+    id: '/calendar',
+    path: '/calendar',
+    getParentRoute: () => ShellProjectsProjectIdRoute,
+  } as any)
 const ShellProjectsProjectIdListRoute =
   ShellProjectsProjectIdListRouteImport.update({
     id: '/list',
@@ -109,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/settings/workspace': typeof ShellSettingsWorkspaceRoute
   '/projects/': typeof ShellProjectsIndexRoute
   '/projects/$projectId/board': typeof ShellProjectsProjectIdBoardRoute
+  '/projects/$projectId/calendar': typeof ShellProjectsProjectIdCalendarRoute
   '/projects/$projectId/list': typeof ShellProjectsProjectIdListRoute
   '/projects/$projectId/': typeof ShellProjectsProjectIdIndexRoute
 }
@@ -122,6 +130,7 @@ export interface FileRoutesByTo {
   '/settings/workspace': typeof ShellSettingsWorkspaceRoute
   '/projects': typeof ShellProjectsIndexRoute
   '/projects/$projectId/board': typeof ShellProjectsProjectIdBoardRoute
+  '/projects/$projectId/calendar': typeof ShellProjectsProjectIdCalendarRoute
   '/projects/$projectId/list': typeof ShellProjectsProjectIdListRoute
   '/projects/$projectId': typeof ShellProjectsProjectIdIndexRoute
 }
@@ -139,6 +148,7 @@ export interface FileRoutesById {
   '/_shell/settings/workspace': typeof ShellSettingsWorkspaceRoute
   '/_shell/projects/': typeof ShellProjectsIndexRoute
   '/_shell/projects/$projectId/board': typeof ShellProjectsProjectIdBoardRoute
+  '/_shell/projects/$projectId/calendar': typeof ShellProjectsProjectIdCalendarRoute
   '/_shell/projects/$projectId/list': typeof ShellProjectsProjectIdListRoute
   '/_shell/projects/$projectId/': typeof ShellProjectsProjectIdIndexRoute
 }
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/settings/workspace'
     | '/projects/'
     | '/projects/$projectId/board'
+    | '/projects/$projectId/calendar'
     | '/projects/$projectId/list'
     | '/projects/$projectId/'
   fileRoutesByTo: FileRoutesByTo
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
     | '/settings/workspace'
     | '/projects'
     | '/projects/$projectId/board'
+    | '/projects/$projectId/calendar'
     | '/projects/$projectId/list'
     | '/projects/$projectId'
   id:
@@ -185,6 +197,7 @@ export interface FileRouteTypes {
     | '/_shell/settings/workspace'
     | '/_shell/projects/'
     | '/_shell/projects/$projectId/board'
+    | '/_shell/projects/$projectId/calendar'
     | '/_shell/projects/$projectId/list'
     | '/_shell/projects/$projectId/'
   fileRoutesById: FileRoutesById
@@ -287,6 +300,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellProjectsProjectIdBoardRouteImport
       parentRoute: typeof ShellProjectsProjectIdRoute
     }
+    '/_shell/projects/$projectId/calendar': {
+      id: '/_shell/projects/$projectId/calendar'
+      path: '/calendar'
+      fullPath: '/projects/$projectId/calendar'
+      preLoaderRoute: typeof ShellProjectsProjectIdCalendarRouteImport
+      parentRoute: typeof ShellProjectsProjectIdRoute
+    }
     '/_shell/projects/$projectId/list': {
       id: '/_shell/projects/$projectId/list'
       path: '/list'
@@ -299,6 +319,7 @@ declare module '@tanstack/react-router' {
 
 interface ShellProjectsProjectIdRouteChildren {
   ShellProjectsProjectIdBoardRoute: typeof ShellProjectsProjectIdBoardRoute
+  ShellProjectsProjectIdCalendarRoute: typeof ShellProjectsProjectIdCalendarRoute
   ShellProjectsProjectIdListRoute: typeof ShellProjectsProjectIdListRoute
   ShellProjectsProjectIdIndexRoute: typeof ShellProjectsProjectIdIndexRoute
 }
@@ -306,6 +327,7 @@ interface ShellProjectsProjectIdRouteChildren {
 const ShellProjectsProjectIdRouteChildren: ShellProjectsProjectIdRouteChildren =
   {
     ShellProjectsProjectIdBoardRoute: ShellProjectsProjectIdBoardRoute,
+    ShellProjectsProjectIdCalendarRoute: ShellProjectsProjectIdCalendarRoute,
     ShellProjectsProjectIdListRoute: ShellProjectsProjectIdListRoute,
     ShellProjectsProjectIdIndexRoute: ShellProjectsProjectIdIndexRoute,
   }
