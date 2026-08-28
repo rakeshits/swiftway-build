@@ -37,7 +37,7 @@ const schema = z.object({
     .trim()
     .min(3, "Project name needs at least 3 characters.")
     .max(60, "Keep the name under 60 characters."),
-  description: z.string().trim().max(240, "Descriptions are capped at 240 characters.").default(""),
+  description: z.string().trim().max(240, "Descriptions are capped at 240 characters."),
   status: z.enum(["active", "on_hold", "completed", "archived"]),
   priority: z.enum(["urgent", "high", "medium", "low"]),
   dueDate: z.string().min(1, "Pick a target due date."),
@@ -105,7 +105,7 @@ export function ProjectFormDialog({
         <Form {...form}>
           <form
             className="space-y-4"
-            onSubmit={form.handleSubmit((values) => onSubmit(values as ProjectInput))}
+            onSubmit={form.handleSubmit((values) => onSubmit(values))}
           >
             <FormField
               control={form.control}
