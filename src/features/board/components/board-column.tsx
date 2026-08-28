@@ -46,7 +46,7 @@ export function BoardColumn({
   return (
     <section
       className={cn(
-        "flex w-[280px] shrink-0 flex-col rounded-lg border border-border bg-surface transition-colors sm:w-[300px]",
+        "flex w-[280px] shrink-0 flex-col rounded-lg border border-border bg-surface transition-colors sm:w-[300px] xl:w-auto xl:min-w-0",
         isOver && "border-primary/40 bg-primary/[0.04]",
       )}
     >
@@ -140,7 +140,7 @@ export function BoardColumn({
 
 export function BoardColumnSkeleton({ label, count }: { label: string; count: number }) {
   return (
-    <section className="flex w-[280px] shrink-0 flex-col rounded-lg border border-border bg-surface sm:w-[300px]">
+    <section className="flex w-[280px] shrink-0 flex-col rounded-lg border border-border bg-surface sm:w-[300px] xl:w-auto xl:min-w-0">
       <header className="flex items-center gap-2 border-b border-border px-3 py-2.5">
         <span className="size-1.5 rounded-full bg-muted" />
         <h3 className="text-sm font-semibold text-muted-foreground">{label}</h3>

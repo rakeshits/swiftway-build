@@ -186,7 +186,7 @@ export function KanbanBoard({
 function BoardScroller({ children }: { children: React.ReactNode }) {
   return (
     <div className="-mx-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0 [scrollbar-color:var(--border-strong)_transparent] [scrollbar-width:thin]">
-      <div className="flex items-start gap-3">{children}</div>
+      <div className="flex items-start gap-3 xl:grid xl:grid-cols-5">{children}</div>
       <p className="mt-2 text-[11px] text-muted-foreground lg:hidden">Scroll sideways for more columns →</p>
     </div>
   );
