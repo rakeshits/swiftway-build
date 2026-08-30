@@ -75,6 +75,10 @@ export async function createTask(input: {
   projectId: string;
   title: string;
   status: TaskStatus;
+  description?: string;
+  priority?: Task["priority"];
+  assigneeId?: string | null;
+  dueDate?: string | null;
 }): Promise<BoardTask> {
   const project = projects.find((p) => p.id === input.projectId);
   if (!project) throw new Error("Project not found");
@@ -83,16 +87,18 @@ export async function createTask(input: {
     projectId: input.projectId,
     title: input.title,
     status: input.status,
-    priority: "medium",
-    assigneeId: null,
+    priority: input.priority ?? "medium",
+    assigneeId: input.assigneeId ?? null,
     labelIds: [],
-    dueDate: null,
+    dueDate: input.dueDate ?? null,
     createdAt: new Date().toISOString().slice(0, 10),
     commentCount: 0,
     checklistDone: 0,
     checklistTotal: 0,
   };
   tasks.push(task);
+  if (input.description) descriptions.set(task.id, input.description);
+  log(task.id, "created this task");
   return delayed(hydrate(task));
 }
 
