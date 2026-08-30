@@ -109,14 +109,14 @@ export const tasks: Task[] = titles.flatMap((title, i) => {
       projectId: project.id,
       title,
       status,
-      priority: priorities[i % priorities.length]!,
+      priority: priorities[(i * 3 + 1) % priorities.length]!,
       assigneeId: i % 6 === 5 ? null : members[i % members.length]!.id,
       labelIds: [labels[i % labels.length]!.id, ...(i % 4 === 0 ? [labels[(i + 2) % labels.length]!.id] : [])],
       dueDate: iso(overdue ? subDays(today, (i % 5) + 1) : addDays(today, (i % 14) + 1)),
       createdAt: iso(subDays(today, 30 - (i % 25))),
-      commentCount: i % 5,
-      checklistDone: i % 4,
-      checklistTotal: (i % 4) + 2,
+      commentCount: (i * 2) % 5,
+      checklistDone: (i * 5) % 4,
+      checklistTotal: ((i * 5) % 4) + 2,
     },
   ];
 });
