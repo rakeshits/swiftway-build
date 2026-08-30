@@ -1,5 +1,15 @@
 import { addDays, format, subDays } from "date-fns";
-import type { ActivityEntry, Label, Member, Project, Task } from "./types";
+import type {
+  ActivityEntry,
+  ChecklistItem,
+  Label,
+  Member,
+  Project,
+  Subtask,
+  Task,
+  TaskComment,
+  TaskEvent,
+} from "./types";
 
 const today = new Date();
 const iso = (d: Date) => format(d, "yyyy-MM-dd");
@@ -119,3 +129,59 @@ export const activity: ActivityEntry[] = [
   { id: "a5", memberId: "m4", action: "completed", target: "Migrate legacy webhooks", projectId: "p2", at: "Yesterday" },
   { id: "a6", memberId: "m1", action: "assigned Mira to", target: "Empty state illustrations", projectId: "p4", at: "Yesterday" },
 ];
+
+const checklistSeeds = [
+  "Write the acceptance criteria",
+  "Pair with design on states",
+  "Add unit tests",
+  "Update the changelog",
+];
+
+export const checklistItems: ChecklistItem[] = tasks.flatMap((task, i) =>
+  Array.from({ length: task.checklistTotal }, (_, j) => ({
+    id: `c-${task.id}-${j + 1}`,
+    taskId: task.id,
+    text: checklistSeeds[(i + j) % checklistSeeds.length]!,
+    done: j < task.checklistDone,
+  })),
+);
+
+const subtaskSeeds = [
+  "Draft the API contract",
+  "Build the component shell",
+  "Handle the error path",
+];
+
+export const subtasks: Subtask[] = tasks.flatMap((task, i) =>
+  Array.from({ length: i % 3 }, (_, j) => ({
+    id: `s-${task.id}-${j + 1}`,
+    taskId: task.id,
+    title: subtaskSeeds[(i + j) % subtaskSeeds.length]!,
+    done: (i + j) % 4 === 0,
+  })),
+);
+
+const commentSeeds = [
+  "Pushed a first pass — the empty state still needs copy.",
+  "Blocked on the migration landing, moving this back for now.",
+  "Looks good to me, one nit in the review thread.",
+  "Can we scope this down so it ships this week?",
+];
+
+export const taskComments: TaskComment[] = tasks.flatMap((task, i) =>
+  Array.from({ length: task.commentCount }, (_, j) => ({
+    id: `cm-${task.id}-${j + 1}`,
+    taskId: task.id,
+    memberId: members[(i + j) % members.length]!.id,
+    body: commentSeeds[(i + j) % commentSeeds.length]!,
+    at: subDays(today, (j % 4) + 1).toISOString(),
+  })),
+);
+
+export const taskEvents: TaskEvent[] = tasks.map((task, i) => ({
+  id: `ev-${task.id}-1`,
+  taskId: task.id,
+  memberId: members[i % members.length]!.id,
+  message: "created this task",
+  at: subDays(today, 30 - (i % 25)).toISOString(),
+}));

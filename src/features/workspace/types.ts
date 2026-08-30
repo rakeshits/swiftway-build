@@ -63,3 +63,33 @@ export type ThroughputPoint = {
   completed: number;
   created: number;
 };
+
+export type ChecklistItem = {
+  id: string;
+  taskId: string;
+  text: string;
+  done: boolean;
+};
+
+export type Subtask = {
+  id: string;
+  taskId: string;
+  title: string;
+  done: boolean;
+};
+
+export type TaskComment = {
+  id: string;
+  taskId: string;
+  memberId: string;
+  body: string;
+  at: string;
+};
+
+export type TaskEvent = {
+  id: string;
+  taskId: string;
+  memberId: string;
+  message: string;
+  at: string;
+};
