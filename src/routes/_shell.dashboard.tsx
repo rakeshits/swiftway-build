@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { FolderPlus, Plus } from "lucide-react";
@@ -18,6 +19,7 @@ import {
   ThroughputChart,
   ThroughputChartSkeleton,
 } from "@/features/dashboard/components/throughput-chart";
+import { TaskFormDialog } from "@/features/board/components/task-form-dialog";
 
 export const Route = createFileRoute("/_shell/dashboard")({
   head: () => ({
@@ -69,6 +71,7 @@ function DashboardPage() {
   const deadlines = useQuery({ queryKey: ["deadlines"], queryFn: () => getUpcomingDeadlines(6) });
   const activity = useQuery({ queryKey: ["activity"], queryFn: getRecentActivity });
   const throughput = useQuery({ queryKey: ["throughput"], queryFn: () => getThroughput(14) });
+  const [newTaskOpen, setNewTaskOpen] = useState(false);
 
   const hasProjects = (projects.data?.length ?? 0) > 0;
 
@@ -82,7 +85,7 @@ function DashboardPage() {
             <Button variant="outline" size="sm" asChild>
               <Link to="/projects">View projects</Link>
             </Button>
-            <Button size="sm">
+            <Button size="sm" onClick={() => setNewTaskOpen(true)}>
               <Plus className="size-4" /> New task
             </Button>
           </>
@@ -95,8 +98,10 @@ function DashboardPage() {
           title="No projects yet"
           description="Create your first project to start tracking work, deadlines and team progress."
           action={
-            <Button size="sm">
-              <Plus className="size-4" /> Create project
+            <Button size="sm" asChild>
+              <Link to="/projects">
+                <Plus className="size-4" /> Create project
+              </Link>
             </Button>
           }
         />
@@ -144,6 +149,8 @@ function DashboardPage() {
           </SectionCard>
         </>
       )}
+
+      <TaskFormDialog open={newTaskOpen} onOpenChange={setNewTaskOpen} />
     </div>
   );
 }
