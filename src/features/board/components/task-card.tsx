@@ -55,7 +55,7 @@ export const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(function TaskC
       style={style}
       role="button"
       tabIndex={0}
-      onClick={() => onOpen?.(task.id)}
+      onClick={() => { console.log("CARD CLICK", task.id, typeof onOpen); onOpen?.(task.id); }}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
