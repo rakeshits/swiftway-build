@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronsLeft, ChevronsRight, Compass, Plus } from "lucide-react";
 import { navItems } from "./nav-items";
@@ -5,6 +6,7 @@ import { useUIStore } from "@/stores/ui-store";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { TaskFormDialog } from "@/features/board/components/task-form-dialog";
 
 export function WorkspaceMark({ collapsed = false }: { collapsed?: boolean }) {
   return (
@@ -59,6 +61,7 @@ export function SidebarNav({ collapsed, onNavigate }: { collapsed: boolean; onNa
 
 export function AppSidebar() {
   const { sidebarCollapsed, toggleSidebar } = useUIStore();
+  const [newTaskOpen, setNewTaskOpen] = useState(false);
 
   return (
     <aside
@@ -72,7 +75,12 @@ export function AppSidebar() {
       </div>
 
       <div className={cn("px-3 py-3", sidebarCollapsed && "px-2")}>
-        <Button size="sm" className={cn("w-full", sidebarCollapsed && "px-0")} aria-label="New task">
+        <Button
+          size="sm"
+          className={cn("w-full", sidebarCollapsed && "px-0")}
+          aria-label="New task"
+          onClick={() => setNewTaskOpen(true)}
+        >
           <Plus className="size-4" />
           {!sidebarCollapsed && "New task"}
         </Button>
@@ -94,6 +102,8 @@ export function AppSidebar() {
           {!sidebarCollapsed && "Collapse"}
         </Button>
       </div>
+
+      <TaskFormDialog open={newTaskOpen} onOpenChange={setNewTaskOpen} />
     </aside>
   );
 }
